@@ -1,0 +1,24 @@
+services:
+  mariadb:
+    image: mariadb:10.6
+    container_name: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass123
+      MYSQL_DATABASE: ecommerce
+      MYSQL_USER: ecommerce_admin
+      MYSQL_PASSWORD: L4r4v3!12_30omm3rc3
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb_data:/var/lib/mariadb
+
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      - PMA_ARBITRARY=1
+volumes:
+  mariadb_data:
