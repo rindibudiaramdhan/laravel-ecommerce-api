@@ -1,4 +1,17 @@
 services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    container_name: laravel_app
+    volumes:
+      - .:/var/www
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mariadb
+    # networks:
+    #   - laravel_net
   mariadb:
     image: mariadb:10.6
     container_name: mariadb
@@ -12,7 +25,8 @@ services:
       - "3306:3306"
     volumes:
       - mariadb_data:/var/lib/mariadb
-
+    # networks:
+    #   - laravel_net
   phpmyadmin:
     image: phpmyadmin
     restart: always
@@ -22,3 +36,5 @@ services:
       - PMA_ARBITRARY=1
 volumes:
   mariadb_data:
+# networks:
+#   laravel_net:
